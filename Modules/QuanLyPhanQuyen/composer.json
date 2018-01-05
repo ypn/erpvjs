@@ -1,0 +1,25 @@
+{
+    "name": "nwidart/quanlyphanquyen",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\QuanLyPhanQuyen\\Providers\\QuanLyPhanQuyenServiceProvider"
+            ],
+            "aliases": {
+                
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\QuanLyPhanQuyen\\": ""
+        }
+    }
+}

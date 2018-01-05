@@ -1,0 +1,16 @@
+{
+    "name": "QuanLyXeRaVao",
+    "alias": "quanlyxeravao",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\QuanLyXeRaVao\\Providers\\QuanLyXeRaVaoServiceProvider"
+    ],
+    "aliases": {},
+    "files": [
+        "start.php"
+    ],
+    "requires": []
+}

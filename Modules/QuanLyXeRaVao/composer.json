@@ -1,0 +1,25 @@
+{
+    "name": "nwidart/quanlyxeravao",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\QuanLyXeRaVao\\Providers\\QuanLyXeRaVaoServiceProvider"
+            ],
+            "aliases": {
+                
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\QuanLyXeRaVao\\": ""
+        }
+    }
+}

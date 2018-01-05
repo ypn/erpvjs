@@ -1,0 +1,16 @@
+{
+    "name": "QuanLyMua",
+    "alias": "quanlymua",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\QuanLyMua\\Providers\\QuanLyMuaServiceProvider"
+    ],
+    "aliases": {},
+    "files": [
+        "start.php"
+    ],
+    "requires": []
+}

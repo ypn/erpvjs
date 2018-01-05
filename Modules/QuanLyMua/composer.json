@@ -1,0 +1,25 @@
+{
+    "name": "nwidart/quanlymua",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\QuanLyMua\\Providers\\QuanLyMuaServiceProvider"
+            ],
+            "aliases": {
+                
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\QuanLyMua\\": ""
+        }
+    }
+}

@@ -1,0 +1,16 @@
+{
+    "name": "QuanLyPhanQuyen",
+    "alias": "quanlyphanquyen",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\QuanLyPhanQuyen\\Providers\\QuanLyPhanQuyenServiceProvider"
+    ],
+    "aliases": {},
+    "files": [
+        "start.php"
+    ],
+    "requires": []
+}
