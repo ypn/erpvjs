@@ -11,6 +11,11 @@ Route::group(['middleware' => 'web', 'prefix' => 'quanlyxeravao', 'namespace' =>
       Route::post('update/{id}','CheckPoinController@update');
       Route::group(['prefix'=>'api'],function(){
         Route::get('list','CheckPoinController@apiList');
+        Route::get('list-tracking-car','CheckPoinController@listTrackingCar');
       });
+    });
+
+    Route::group(['prefix'=>'session-tracking'],function(){
+      Route::get('list','SessionsTrakingController@list');
     });
 });

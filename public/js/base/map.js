@@ -6,7 +6,7 @@ function initMap() {
       center: {lat: 20.904956, lng: 106.629027}
     });
     var marker =null;
-    var socket = io('192.168.0.56:3000');
+    var socket = io('127.0.0.1:3000');
     var path = [];
     var poly = new google.maps.Polyline({
       map: map
@@ -48,7 +48,7 @@ function initMap() {
         });
       }
 
-      let result = getCheckpointOfCar(marker.getPosition());
+      //let result = getCheckpointOfCar(marker.getPosition());
 
       marker.setPosition(uluru);
       path.push(uluru);
@@ -70,13 +70,13 @@ $('#toggle-bottom-sheet').on('click',function(){
  * Kiểm tra xe có nằm trong checkpoint hay không
  * trả về checkpoin nếu xe thuộc check point và null nếu không thuôc.
  */
-function getCheckpointOfCar(latlng){
-  for(i in lchkps ){
-    if( google.maps.geometry.poly.containsLocation(latlng, lchkps[i]) ){
-      console.log('clgt');
-      return lchkps[i];
-    }
-  }
-
-  return null;
-}
+// function getCheckpointOfCar(latlng){
+//   for(i in lchkps ){
+//     if( google.maps.geometry.poly.containsLocation(latlng, lchkps[i]) ){
+//       console.log('clgt');
+//       return lchkps[i];
+//     }
+//   }
+//
+//   return null;
+// }

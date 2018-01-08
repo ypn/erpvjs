@@ -16,10 +16,7 @@ export default class ChonQuyTrinh extends React.Component{
     Store.on('tai-danh-sach-quy-trinh-thanh-cong',()=>{
       this.setState({
         listQuyTrinh:Store.taiDanhSachQuyTrinh()
-      });
-
-      console.log('danh sachssssss:');
-      console.log(this.state.listQuyTrinh);
+      });   
 
     });
   }

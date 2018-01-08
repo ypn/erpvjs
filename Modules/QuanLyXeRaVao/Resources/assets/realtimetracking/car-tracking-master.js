@@ -1,7 +1,8 @@
-import ReactDOM from 'react';
+import React from 'react';
+import ReactDOM from 'react-dom';
 import CarTracker from './components/CarTracker';
 
 ReactDOM.render(
   <CarTracker/>,
-  document.getElementById('car-tracker')
+  document.getElementById('react-root-car-tracker')
 )

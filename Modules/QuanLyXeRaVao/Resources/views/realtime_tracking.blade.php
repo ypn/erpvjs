@@ -1,6 +1,6 @@
 @extends('master')
 @section('script')
-<script src="http://192.168.0.56:3000/socket.io/socket.io.js"></script>
+<script src="http://127.0.0.1:3000/socket.io/socket.io.js"></script>
 <script type="text/javascript">
   var listCheckpoints = JSON.stringify(<?php echo ($pathCheckPoints); ?>);
 </script>
@@ -34,7 +34,6 @@
 @section('content')
 <!-- Main content -->
 <section class="content" style="padding:0;">
-  <div id="car-tracker"></div>
   <!-- MAP & BOX PANE -->
   <div class="box box-success" style="border-radius:0;">
     <div class="box-header with-border">
@@ -65,12 +64,15 @@
   <div class="bottom-sheet open">
 
     <ul class="nav nav-tabs">
-      <li class="active"><a data-toggle="tab" href="#home">Thông tin xe</a></li>
-      <li><a data-toggle="tab" href="#menu1">Checkpoints</a></li>
+      <li class="active"><a data-toggle="tab" href="#menu1">Checkpoints</a></li>
+      <li><a data-toggle="tab" href="#home">Thông tin xe</a></li>
     </ul>
 
     <div class="tab-content">
-      <div id="home" class="tab-pane fade in active">
+      <div id="menu1" class="tab-pane fade  in active">
+        <div id="react-root-car-tracker"></div>
+      </div>
+      <div id="home" class="tab-pane fade">
         <div>
           <table class="table table-bordered">
             <thead>
@@ -157,9 +159,6 @@
             </tbody>
           </table>
         </div>
-      </div>
-      <div id="menu1" class="tab-pane fade">
-
       </div>
     </div>
   </div>
