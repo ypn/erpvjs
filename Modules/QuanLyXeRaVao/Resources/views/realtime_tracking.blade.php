@@ -4,6 +4,8 @@
 <script type="text/javascript">
   var listCheckpoints = JSON.stringify(<?php echo ($pathCheckPoints); ?>);
 </script>
+<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+</script>
 <script src="/js/base/map.js"></script>
 <script src="/modules/quanlyxeravao/car-tracking-master.js">
 
@@ -61,7 +63,7 @@
 </section>
 <!-- /.content -->
 <section>
-  <div class="bottom-sheet open">
+  <div class="bottom-sheet">
 
     <ul class="nav nav-tabs">
       <li class="active"><a data-toggle="tab" href="#menu1">Checkpoints</a></li>

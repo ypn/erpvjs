@@ -1,5 +1,6 @@
 import React from 'react';
 import Stores from '../stores/Stores';
+import axios from 'axios';
 
 export default class CheckPoint extends React.Component{
   constructor(props){
@@ -10,6 +11,13 @@ export default class CheckPoint extends React.Component{
   }
 
   componentWillMount(){
+    var _self = this;
+    axios.get(`/quanlyxeravao/session-tracking/checking/${this.props.index}`).then(function(response){
+      _self.setState({
+        amount:response.data
+      })
+    })
+
     var _self = this;
     Stores.on(`session_step_in_checkpoint_${_self.props.id}`,function(){
       _self.setState({

@@ -32,9 +32,9 @@ export default class TableHeader extends React.Component{
             <th key={-2}>#</th>
             <th key={-1}>Xe({this.state.total})</th>
             {
-              this.state.listCheckPoints.map(node=>{
+              this.state.listCheckPoints.map((node,k)=>{
                 return(
-                  <CheckPoint id={node.id} key={node.id} name={node.name} />
+                  <CheckPoint index={k} id={node.id} key={node.id} name={node.name} />
                 );
               })
             }

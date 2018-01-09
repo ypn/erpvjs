@@ -17,5 +17,6 @@ Route::group(['middleware' => 'web', 'prefix' => 'quanlyxeravao', 'namespace' =>
 
     Route::group(['prefix'=>'session-tracking'],function(){
       Route::get('list','SessionsTrakingController@list');
+      Route::get('checking/{id}','SessionsTrakingController@checking');
     });
 });

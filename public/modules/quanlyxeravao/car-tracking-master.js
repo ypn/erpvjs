@@ -495,8 +495,8 @@ module.exports = emptyFunction;
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_events__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_events___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_events__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__dispatcher_dispatcher__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__dispatcher_dispatcher__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_axios__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -688,6 +688,12 @@ module.exports = warning;
 /* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
+module.exports = __webpack_require__(41);
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
@@ -785,7 +791,7 @@ module.exports = defaults;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(44)))
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -882,7 +888,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -905,7 +911,7 @@ if (true) {
 module.exports = emptyObject;
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -971,7 +977,7 @@ module.exports = checkPropTypes;
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -979,12 +985,6 @@ module.exports = checkPropTypes;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_flux___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_flux__);
 
 /* harmony default export */ __webpack_exports__["a"] = (new __WEBPACK_IMPORTED_MODULE_0_flux__["Dispatcher"]());
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(41);
 
 /***/ }),
 /* 12 */
@@ -1264,7 +1264,7 @@ module.exports = Cancel;
 /* harmony export (immutable) */ __webpack_exports__["c"] = getListTrakingCar;
 /* harmony export (immutable) */ __webpack_exports__["e"] = newSessionDetected;
 /* harmony export (immutable) */ __webpack_exports__["d"] = getTotalSessions;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__dispatcher_dispatcher__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__dispatcher_dispatcher__ = __webpack_require__(11);
 
 
 function SessionStepInCheckPoint(data) {
@@ -1346,12 +1346,12 @@ if (true) {
   (function() {
 'use strict';
 
-var _assign = __webpack_require__(7);
-var emptyObject = __webpack_require__(8);
+var _assign = __webpack_require__(8);
+var emptyObject = __webpack_require__(9);
 var invariant = __webpack_require__(2);
 var warning = __webpack_require__(5);
 var emptyFunction = __webpack_require__(3);
-var checkPropTypes = __webpack_require__(9);
+var checkPropTypes = __webpack_require__(10);
 
 // TODO: this is special because it gets imported during build.
 
@@ -2778,15 +2778,15 @@ var React = __webpack_require__(1);
 var invariant = __webpack_require__(2);
 var warning = __webpack_require__(5);
 var ExecutionEnvironment = __webpack_require__(24);
-var _assign = __webpack_require__(7);
+var _assign = __webpack_require__(8);
 var emptyFunction = __webpack_require__(3);
 var EventListener = __webpack_require__(25);
 var getActiveElement = __webpack_require__(26);
 var shallowEqual = __webpack_require__(27);
 var containsNode = __webpack_require__(28);
 var focusNode = __webpack_require__(31);
-var emptyObject = __webpack_require__(8);
-var checkPropTypes = __webpack_require__(9);
+var emptyObject = __webpack_require__(9);
+var checkPropTypes = __webpack_require__(10);
 var hyphenateStyleName = __webpack_require__(32);
 var camelizeStyleName = __webpack_require__(34);
 
@@ -18807,6 +18807,7 @@ var CarTrackedItem = function (_React$Component) {
     value: function componentWillMount() {
       var _self = this;
       var interval;
+
       __WEBPACK_IMPORTED_MODULE_1__stores_Stores__["a" /* default */].on('session_' + this.props.id + '_step_in_checkpoint', function (data) {
         var newTracks = _self.state.tracks;
         newTracks[data.data.data.checkpointIndex].status = 1;
@@ -19460,7 +19461,7 @@ module.exports = Dispatcher;
 var utils = __webpack_require__(0);
 var bind = __webpack_require__(12);
 var Axios = __webpack_require__(43);
-var defaults = __webpack_require__(6);
+var defaults = __webpack_require__(7);
 
 /**
  * Create an instance of Axios
@@ -19543,7 +19544,7 @@ function isSlowBuffer (obj) {
 "use strict";
 
 
-var defaults = __webpack_require__(6);
+var defaults = __webpack_require__(7);
 var utils = __webpack_require__(0);
 var InterceptorManager = __webpack_require__(53);
 var dispatchRequest = __webpack_require__(54);
@@ -20265,7 +20266,7 @@ module.exports = InterceptorManager;
 var utils = __webpack_require__(0);
 var transformData = __webpack_require__(55);
 var isCancel = __webpack_require__(15);
-var defaults = __webpack_require__(6);
+var defaults = __webpack_require__(7);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -20516,7 +20517,7 @@ module.exports = function spread(callback) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__CheckPoint__ = __webpack_require__(61);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_axios__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__stores_Stores__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__actions_Actions__ = __webpack_require__(17);
@@ -20586,8 +20587,8 @@ var TableHeader = function (_React$Component) {
             this.state.total,
             ')'
           ),
-          this.state.listCheckPoints.map(function (node) {
-            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__CheckPoint__["a" /* default */], { id: node.id, key: node.id, name: node.name });
+          this.state.listCheckPoints.map(function (node, k) {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__CheckPoint__["a" /* default */], { index: k, id: node.id, key: node.id, name: node.name });
           })
         )
       );
@@ -20607,6 +20608,8 @@ var TableHeader = function (_React$Component) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__stores_Stores__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_axios__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -20614,6 +20617,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -20635,6 +20639,13 @@ var CheckPoint = function (_React$Component) {
   _createClass(CheckPoint, [{
     key: 'componentWillMount',
     value: function componentWillMount() {
+      var _self = this;
+      __WEBPACK_IMPORTED_MODULE_2_axios___default.a.get('/quanlyxeravao/session-tracking/checking/' + this.props.index).then(function (response) {
+        _self.setState({
+          amount: response.data
+        });
+      });
+
       var _self = this;
       __WEBPACK_IMPORTED_MODULE_1__stores_Stores__["a" /* default */].on('session_step_in_checkpoint_' + _self.props.id, function () {
         _self.setState({

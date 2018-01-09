@@ -12,6 +12,7 @@ export default class CarTrackedItem extends React.Component{
   componentWillMount(){
     var _self = this;
     var interval;
+
     Stores.on(`session_${this.props.id}_step_in_checkpoint`,function(data){
       var newTracks = _self.state.tracks;
       newTracks[data.data.data.checkpointIndex].status = 1;
