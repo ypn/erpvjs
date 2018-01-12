@@ -1,5 +1,6 @@
 @extends('master')
 @section('script')
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnYiPim3y8CmQ1_t8slDZTSLnhXk0II7Q"></script>
 <script src="/modules/quanlyxeravao/getcheckpoints.js"></script>
 @stop
 @section('content')
