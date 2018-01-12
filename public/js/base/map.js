@@ -13,7 +13,7 @@ function initMap() {
       center: {lat: 20.904956, lng: 106.629027}
     });
     var marker =null;
-    var socket = io('127.0.0.1:3000');
+    var socket = io('113.160.215.214:3000');
     var path = [];
     var poly = new google.maps.Polyline({
       map: map
