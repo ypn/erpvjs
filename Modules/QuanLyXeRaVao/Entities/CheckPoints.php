@@ -67,4 +67,9 @@ class CheckPoints extends Model
     protected function getPathCheckPoints(){
       return $this->select('path')->pluck('path')->toArray();
     }
+
+    protected function del($id){
+      $this->destroy($id);
+      
+    }
 }

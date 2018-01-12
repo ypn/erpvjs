@@ -1,5 +1,12 @@
+const NO_SIZE = 0;
+const SIZE_XS = 1;
+const SIZE_SM = 3;
+const SIZE_MD = 5;
+const SIZE_LG = 15;
+const SIZE_EXT= 30;
 var markers = [];
 var lchkps =[];//Danh sách tất cả các check point được tạo từ polygon;
+initMap();
 function initMap() {
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 17,
@@ -72,6 +79,8 @@ function drawMap(map){
     icon: ic_nhacan
   });
 
+
+
   var ic_sanbong = './images/iconmap/iconstadium/football-field_x32.png';
 
   var sanbong= new google.maps.Marker({
@@ -80,13 +89,14 @@ function drawMap(map){
     icon: ic_sanbong
   });
 
-  //Khối nhà văn phòng
+
   var ic_nhavp = './images/iconmap/nhavp/vp_x32.png';
   var nhavp = new google.maps.Marker({
     position: {lat:20.905513,lng:106.631977},
     map:map,
     icon:ic_nhavp
   });
+
   //Kết thúc khối nhà văn phòng.
 
   //Vẽ văn phòng ban quản lý
@@ -192,15 +202,7 @@ function drawMap(map){
       {lat:20.904454,lng: 106.628047},
       {lat:20.904454,lng:106.626850}
     ];
-    var nhamayluyen = new google.maps.Polygon({
-       paths: cor_nhamayluyen,
-       strokeColor: 'rgba(0,0,0,0)',
-       strokeOpacity: 1,
-       strokeWeight: 0,
-       fillColor: '#3c8dbc',
-       fillOpacity:0.35,
-       label: 'Nhà máy luyện'
-     });
+    var nhamayluyen = drawPolygon(cor_nhamayluyen,'#3c8dbc');
 
      nhamayluyen.setMap(map);
    //kết thúc vẽ nhà máy luyện
@@ -215,16 +217,25 @@ function drawMap(map){
       {lat:20.905422,lng:106.627597}
     ];
 
-    var nmc = new google.maps.Polygon({
-       paths: cor_nmc,
-       strokeColor: 'rgba(0,0,0,0)',
-       strokeOpacity: 1,
-       strokeWeight: 0,
-       fillColor: '#3c8dbc',
-       fillOpacity:0.35
-     });
+    var nmc = drawPolygon(cor_nmc,'#3c8dbc');
 
-  nmc.setMap(map);
+    nmc.setMap(map);//Kết thúc vẽ nhà máy cán
+
+  //Vẽ cảng
+  var cor_cang  = [
+     {lat: 20.906994, lng: 106.624772},
+     {lat: 20.906980, lng: 106.625190},
+     {lat: 20.906330, lng: 106.625213},
+     {lat: 20.905120, lng: 106.625210},
+     {lat: 20.905231,lng: 106.624485},
+     {lat: 20.906191,lng: 106.624590}
+   ];
+   var cang = drawPolygon(cor_cang,'#3c8dbc');
+
+   cang.setMap(map);
+
+
+  //Kết thúc vẽ cảng
 
   var a = [];
 
@@ -234,80 +245,190 @@ function drawMap(map){
   a.push(vpbql);
 
 
-
-  var markerCluster = new MarkerClusterer(map, a,
+      var markerCluster = new MarkerClusterer(map, a,
       {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+
+      var lbBaiphe = new MapLabel({
+        text: 'Bãi phế',
+        position: new google.maps.LatLng(20.905024, 106.626112),
+        map: map,
+        fontSize: 15,
+        align: 'right'
+      });
+
+      var lbNmc = new MapLabel({
+        text: 'Nhà máy cán',
+        position: new google.maps.LatLng(20.905704, 106.629209),
+        map: map,
+        fontSize: 15,
+        align: 'right'
+      });
+
+      var lbNml = new MapLabel({
+        text: 'Nhà máy luyện',
+        position: new google.maps.LatLng(20.905619,106.627438),
+        map: map,
+        'rotate':90,
+        fontSize: 12,
+        align: 'right'
+      });
+
+      var lbDuong6m = new MapLabel({
+        text: 'Đường 12m',
+        position: new google.maps.LatLng(20.905126, 106.629755),
+        map: map,
+        fontSize: 13,
+        align: 'right'
+      });
+
+      var lbCang = new MapLabel({
+        text: 'Cảng Việt Nhật',
+        position: new google.maps.LatLng(20.906428, 106.625229),
+        map: map,
+        'rotate':90,
+        fontSize: 13,
+        align: 'right'
+      });
+
+      var lbVpnm = new MapLabel({
+        text: 'Văn phòng nhà máy',
+        position: new google.maps.LatLng(20.906313, 106.628938),
+        map: map,
+        fontSize: 12,
+        align: 'right'
+      });
+
+      var lbNhacan = new MapLabel({
+        text: 'Nhà cân',
+        position: new google.maps.LatLng(20.906016,106.631884),
+        map: map,
+        fontSize: 12,
+        align: 'right'
+      });
 
    //kết thúc
    map.addListener('zoom_changed',function(){
      let zoomLevel = map.getZoom();
      console.log(zoomLevel);
+
+     if(zoomLevel<= 16){
+       vpbql.setOptions({
+         icon:'./images/iconmap/nhavp/vp_x16.png'
+       });
+       lbBaiphe.setMap(null);
+       lbNmc.setMap(null);
+       lbNml.setMap(null);
+       lbDuong6m.setMap(null);
+       lbCang.setMap(null);
+       lbVpnm.setMap(null);
+       lbNhacan.setMap(null);
+     }else{
+       vpbql.setOptions({
+         icon:'./images/iconmap/nhavp/vp_x32.png'
+       });
+       lbBaiphe.setMap(map);
+       lbNmc.setMap(map);
+       lbNml.setMap(map);
+       lbDuong6m.setMap(map);
+       lbCang.setMap(map);
+       lbVpnm.setMap(map);
+       lbNhacan.setMap(map);
+     }
+
      if(zoomLevel < 14){
        duongbaobaiphe.setOptions({
-         strokeWeight:0
+         strokeWeight:NO_SIZE
        });
        duong6m.setOptions({
-         strokeWeight:0
+         strokeWeight:NO_SIZE
        });
        duong12m.setOptions({
-         strokeWeight:0
+         strokeWeight:NO_SIZE
        });
      }else if( zoomLevel == 14 || zoomLevel == 15){
        duongbaobaiphe.setOptions({
-         strokeWeight:1
+         strokeWeight:SIZE_XS
        });
        duong6m.setOptions({
-         strokeWeight:1
+         strokeWeight:SIZE_XS
        });
        duong12m.setOptions({
-         strokeWeight:1
+         strokeWeight:SIZE_XS
        });
        duongvao.setOptions({
-         strokeWeight:1
+         strokeWeight:SIZE_XS
        });
-     }else if( zoomLevel > 15 && zoomLevel <= 17 ){
+     }else if( zoomLevel == 16){
         duongbaobaiphe.setOptions({
-          strokeWeight:3
+          strokeWeight:SIZE_SM
         });
         duong6m.setOptions({
-          strokeWeight:3
+          strokeWeight:SIZE_SM
         });
         duong12m.setOptions({
-          strokeWeight:3
+          strokeWeight:SIZE_SM
         });
         duongvao.setOptions({
-          strokeWeight:3
+          strokeWeight:SIZE_SM
         });
-    }else if(zoomLevel > 17 && zoomLevel <=19){
+    }
+
+    else if(zoomLevel == 17){
+      duongbaobaiphe.setOptions({
+        strokeWeight:SIZE_MD
+      });
+      duong6m.setOptions({
+        strokeWeight:SIZE_MD
+      });
+      duong12m.setOptions({
+        strokeWeight:SIZE_MD
+      });
+      duongvao.setOptions({
+        strokeWeight:SIZE_MD
+      });
+    }
+
+    else if(zoomLevel == 18 || zoomLevel ==19){
          duongbaobaiphe.setOptions({
-           strokeWeight:10
+           strokeWeight:SIZE_LG
          });
          duong6m.setOptions({
-           strokeWeight:10
+           strokeWeight:SIZE_LG
          });
          duong12m.setOptions({
-           strokeWeight:10
+           strokeWeight:SIZE_LG
          });
          duongvao.setOptions({
-           strokeWeight:10
+           strokeWeight:SIZE_LG
          });
      }else{
        duongbaobaiphe.setOptions({
-         strokeWeight:30
+         strokeWeight:SIZE_EXT
        });
        duong6m.setOptions({
-         strokeWeight:30
+         strokeWeight:SIZE_EXT
        });
        duong12m.setOptions({
-         strokeWeight:30
+         strokeWeight:SIZE_EXT
        });
        duongvao.setOptions({
-         strokeWeight:30
+         strokeWeight:SIZE_EXT
        });
      }
 
    });
 
+}
+
+function drawPolygon(paths,fillColor){
+  return new google.maps.Polygon({
+    paths,
+    fillColor,
+    strokeColor: 'rgba(0,0,0,0)',
+    strokeOpacity: 0,
+    strokeWeight: 0,
+    fillOpacity:0.35
+  });
 }
 
 $('#toggle-bottom-sheet').on('click',function(){

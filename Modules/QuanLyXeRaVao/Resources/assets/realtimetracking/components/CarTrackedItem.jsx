@@ -13,6 +13,28 @@ export default class CarTrackedItem extends React.Component{
     var _self = this;
     var interval;
 
+    var tungnui = this.state.tracks;
+    var listInterval = [];
+    for(let i=0;i < tungnui.length ;i++){
+      if(tungnui[i].status ==1){
+         var time1 = new Date(tungnui[i].time_start);
+         var time2 = new Date();
+         tungnui[i].total_time = Math.floor((time2-time1)/1000);
+
+         var a = setInterval(function(){
+           tungnui[i].total_time += 1;
+           _self.setState({
+               tracks:tungnui
+             });
+           }, 1000);
+
+           listInterval[i] = a;
+
+        }
+    }
+
+
+
     Stores.on(`session_${this.props.id}_step_in_checkpoint`,function(data){
       var newTracks = _self.state.tracks;
       newTracks[data.data.data.checkpointIndex].status = 1;
@@ -31,7 +53,14 @@ export default class CarTrackedItem extends React.Component{
     });
 
     Stores.on(`session_${this.props.id}_step_out_checkpoint`,function(data){
-      clearInterval(interval);
+      if(interval){
+          clearInterval(interval);
+      }
+      if(listInterval[data.data.data.checkpointIndex]){
+        clearInterval(listInterval[data.data.data.checkpointIndex]);
+      }
+
+
       var newTracks = _self.state.tracks;
       newTracks[data.data.data.checkpointIndex].status = 2;
       //update new time
@@ -44,13 +73,16 @@ export default class CarTrackedItem extends React.Component{
 
   render(){
     return(
-      <tr key={this.props.id} className="danger">
+      <tr key={this.props.id} className="info">
         <td>{this.props.index +1}</td>
         <td>{this.props.bienso}</td>
         {
           this.state.tracks.map(node=>{
+            console.log('===========node=============');
+            console.log(node);
             var txtStatus;
             var time;
+            var cssClass = null;
             switch (node.status) {
               case 2:
                 txtStatus = 'Đã kiểm tra';
@@ -68,9 +100,11 @@ export default class CarTrackedItem extends React.Component{
                 txtStatus = 'Chưa kiểm tra'
                 break;
             }
+            console.log('maxtime:'+ node.max_time);
+            if(node.total_time > node.max_time*60) cssClass='danger';
 
             return(
-              <td>{txtStatus} {time}</td>
+              <td className={cssClass}>{txtStatus} {time}</td>
             )
           })
         }

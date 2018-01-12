@@ -33,3 +33,10 @@ export function getTotalSessions(){
     type:'GET_TOTAL_SESSIONS'
   });
 }
+
+export function stopTracking(sessionId){
+    dispatcher.dispatch({
+      type:'STOP_TRACKING',
+      sessionId
+    });
+}

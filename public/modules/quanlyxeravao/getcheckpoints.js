@@ -2,6 +2,7 @@ var markers = [];
 var checkpoins = null;
 var checkpoints_data = $('input[name="checkpoints"]');
 var path = checkpoints_data.val() != '' ? checkpoints_data.val() : [];
+initMap();
 function initMap() {
   var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 17,

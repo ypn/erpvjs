@@ -26,6 +26,10 @@ export default class CarTracker extends React.Component {
       Actions.newSessionDetected(data.data);
     });
 
+    socket.on('stop_tracking',function(data){
+      Actions.stopTracking(data.sessionId);
+    });
+
     Stores.on('load_list_tracking_car',()=>{
       this.setState({
         listTrackingCar:Stores.getListTrackingCar()
@@ -33,6 +37,12 @@ export default class CarTracker extends React.Component {
     });
 
     Stores.on('new_session_was_add_to_track',()=>{
+      this.setState({
+        listTrackingCar:Stores.getListTrackingCar()
+      });
+    });
+
+    Stores.on('stop_session_tracking',()=>{
       this.setState({
         listTrackingCar:Stores.getListTrackingCar()
       });

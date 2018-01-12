@@ -12,4 +12,8 @@ class SessionsTraking extends Model
     protected function list(){
       return $this->select('id','bienso','status','type')->where('type',1)->get();
     }
+
+    protected function alll(){
+        return $this->select('id','bienso','created_at')->get();
+    }
 }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\QuanLyXeRaVao\Entities\CheckPoints;
+use Modules\QuanLyXeRaVao\Entities\SessionsTraking;
 
 class QuanLyXeRaVaoController extends Controller
 {
@@ -14,9 +15,18 @@ class QuanLyXeRaVaoController extends Controller
      * @return Response
      */
     public function realtimeTracking()
-    {        
+    {
         return view('quanlyxeravao::realtime_tracking',[
           'pathCheckPoints' =>  json_encode (Checkpoints::getPathCheckPoints()),
         ]);
+    }
+
+    public function report(){
+      $list = SessionsTraking::alll();
+
+    
+      return view('quanlyxeravao::report.report',[
+        'list'=>$list
+      ]);
     }
 }

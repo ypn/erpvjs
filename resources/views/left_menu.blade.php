@@ -1,4 +1,4 @@
-<aside class="main-sidebar">
+  <aside class="main-sidebar">
   <!-- sidebar: style can be found in sidebar.less -->
   <section class="sidebar">
     <!-- Sidebar user panel -->
@@ -124,8 +124,8 @@
 
         <ul class="treeview-menu">
           <li><a href="/quanlyxeravao"><i class="fa fa-circle-o"></i> Theo dõi theo thời gian thực</a></li>
-          <li><a href="/quanlyxeravao/checkpoints/list"><i class="fa fa-circle-o"></i> Checkpoints</a></li>
-          <li><a href="#"><i class="fa fa-circle-o"></i> Danh sách xe</a></li>
+          <li><a href="/quanlyxeravao/checkpoints/list"><i class="fa fa-circle-o"></i> Trạm theo dõi</a></li>
+          <li><a href="/quanlyxeravao/report"><i class="fa fa-circle-o"></i> Xem báo cáo</a></li>
         </ul>
       </li>
 

@@ -18,14 +18,14 @@ class CheckPoinController extends Controller
     public function list()
     {
         return view('quanlyxeravao::checkpoins.list',[
-          'title'=>'Danh sách checkpoins',
+          'title'=>'Danh sách trạm theo dõi',
           'list'=>CheckPoints::list()
         ]);
     }
 
     public function add(){
       return view ('quanlyxeravao::checkpoins.add',[
-        'title'=>'Thêm checkpoint mới'
+        'title'=>'Thêm trạm theo dõi mới'
       ]);
     }
 
@@ -37,7 +37,7 @@ class CheckPoinController extends Controller
       $input = Input::all();
 
       $result = CheckPoints::create($input);
-      return $result;
+      return redirect('/quanlyxeravao/checkpoints/list');
     }
 
     public function edit($id){
@@ -56,6 +56,11 @@ class CheckPoinController extends Controller
 
     public function apiList(){
        return CheckPoints::list()->toJson();
+    }
+
+    public function delete($id){
+      CheckPoints::del($id);
+      return Redirect::back();
     }
 
 }

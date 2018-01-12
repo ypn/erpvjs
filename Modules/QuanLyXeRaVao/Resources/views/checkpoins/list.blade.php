@@ -6,8 +6,8 @@
   </h1>
   <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li><a href="#">Quản Lý Nhân Sự</a></li>
-    <li class="active">Vị trí - cấp bậc</li>
+    <li><a href="#">Quản Lý Xe ra vào</a></li>
+    <li class="active">Danh sách trạm theo dõi</li>
   </ol>
 </section>
 <section class="content">
@@ -26,7 +26,7 @@
             <thead>
               <tr>
                 <th>#</th>
-                <th>Tên check poin</th>
+                <th>Tên trạm theo dõi</th>
                 <th>Mô tả</th>
                 <th></th>
               </tr>
@@ -34,7 +34,7 @@
             <tbody>
                 @if(empty($list->toArray()))
                 <tr>
-                  <td colspan="3" style="text-align:center">Chưa có checkpoin nào. click + để thêm mới.</td>
+                  <td colspan="3" style="text-align:center">Chưa có trạm theo dõi nào nào. click + để thêm mới.</td>
                 </tr>
                 @else
                 @foreach($list as $l)
@@ -44,7 +44,11 @@
                   <td>{{$l->description}}</td>
                   <td>
                     <a href="/quanlyxeravao/checkpoints/edit/{{$l->id}}"><i class="fa fa-edit"></i></a>
-                    <a href="#"><i class="fa fa-minus-square"></i></a>
+                    <a href="javascript:void(0);" onClick="$(this).find('form').submit()"><i class="fa fa-minus-square"></i>
+                      <form method="post" action="/quanlyxeravao/checkpoints/delete/{{$l->id}}">
+                        <input type="hidden" name="_token" value="{{csrf_token()}}">
+                      </form>
+                    </a>
                   </td>
                 </tr>
                 @endforeach

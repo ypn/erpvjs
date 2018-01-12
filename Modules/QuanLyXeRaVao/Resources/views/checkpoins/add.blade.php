@@ -9,7 +9,7 @@
   </h1>
   <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li><a href="#">Thêm checkpoin mới</a></li>
+    <li><a href="#">Thêm trạm theo dõi mới</a></li>
     <li class="active">Vị trí - cấp bậc</li>
   </ol>
 </section>

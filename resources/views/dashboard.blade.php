@@ -1,9 +1,5 @@
 @extends('master')
 @section('script')
-<script src="http://192.168.0.56:3000/socket.io/socket.io.js"></script>
-<script async defer
-src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnYiPim3y8CmQ1_t8slDZTSLnhXk0II7Q&callback=initMap">
-</script>
 <script src="/js/base/map.js"></script>
 @stop
 @section('content')

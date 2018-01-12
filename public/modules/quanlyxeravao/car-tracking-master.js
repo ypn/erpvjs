@@ -559,15 +559,12 @@ var CarTrackerStore = function (_EventEmitter) {
     key: 'SessionStepOutCheckPoint',
     value: function SessionStepOutCheckPoint(data) {
       this.emit('session_step_out_checkpoint_' + data.data.checkpointId);
-      console.log('session out checkpoint:');
-      console.log('session_' + data.data.sessionId + '_step_out_checkpoint');
       this.emit('session_' + data.data.sessionId + '_step_out_checkpoint', { data: data });
     }
   }, {
     key: 'detectNewSession',
     value: function detectNewSession(data) {
       this.listTrackingCar.push(JSON.parse(data));
-      console.log('STORE:detect new session');
       this.emit('new_session_was_add_to_track');
     }
   }, {
@@ -575,6 +572,17 @@ var CarTrackerStore = function (_EventEmitter) {
     value: function getTotalSessions() {
       console.log('sdfsfdsfsdf get total session');
       this.emit('get_total_session_traking');
+    }
+  }, {
+    key: 'stopTracking',
+    value: function stopTracking(sessionId) {
+      console.log('stop session:' + sessionId);
+      var index = this.listTrackingCar.findIndex(function (session) {
+        return session.id == sessionId;
+      });
+      console.log('session remove:' + index);
+      this.listTrackingCar.splice(index, 1);
+      this.emit('stop_session_tracking');
     }
   }, {
     key: 'handleAction',
@@ -594,6 +602,9 @@ var CarTrackerStore = function (_EventEmitter) {
           break;
         case 'GET_TOTAL_SESSIONS':
           this.getTotalSessions();
+          break;
+        case 'STOP_TRACKING':
+          this.stopTracking(action.sessionId);
           break;
       }
     }
@@ -1264,6 +1275,7 @@ module.exports = Cancel;
 /* harmony export (immutable) */ __webpack_exports__["c"] = getListTrakingCar;
 /* harmony export (immutable) */ __webpack_exports__["e"] = newSessionDetected;
 /* harmony export (immutable) */ __webpack_exports__["d"] = getTotalSessions;
+/* harmony export (immutable) */ __webpack_exports__["f"] = stopTracking;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__dispatcher_dispatcher__ = __webpack_require__(11);
 
 
@@ -1297,6 +1309,13 @@ function newSessionDetected(data) {
 function getTotalSessions() {
   __WEBPACK_IMPORTED_MODULE_0__dispatcher_dispatcher__["a" /* default */].dispatch({
     type: 'GET_TOTAL_SESSIONS'
+  });
+}
+
+function stopTracking(sessionId) {
+  __WEBPACK_IMPORTED_MODULE_0__dispatcher_dispatcher__["a" /* default */].dispatch({
+    type: 'STOP_TRACKING',
+    sessionId: sessionId
   });
 }
 
@@ -18728,6 +18747,10 @@ var CarTracker = function (_React$Component) {
         __WEBPACK_IMPORTED_MODULE_3__actions_Actions__["e" /* newSessionDetected */](data.data);
       });
 
+      socket.on('stop_tracking', function (data) {
+        __WEBPACK_IMPORTED_MODULE_3__actions_Actions__["f" /* stopTracking */](data.sessionId);
+      });
+
       __WEBPACK_IMPORTED_MODULE_4__stores_Stores__["a" /* default */].on('load_list_tracking_car', function () {
         _this2.setState({
           listTrackingCar: __WEBPACK_IMPORTED_MODULE_4__stores_Stores__["a" /* default */].getListTrackingCar()
@@ -18735,6 +18758,12 @@ var CarTracker = function (_React$Component) {
       });
 
       __WEBPACK_IMPORTED_MODULE_4__stores_Stores__["a" /* default */].on('new_session_was_add_to_track', function () {
+        _this2.setState({
+          listTrackingCar: __WEBPACK_IMPORTED_MODULE_4__stores_Stores__["a" /* default */].getListTrackingCar()
+        });
+      });
+
+      __WEBPACK_IMPORTED_MODULE_4__stores_Stores__["a" /* default */].on('stop_session_tracking', function () {
         _this2.setState({
           listTrackingCar: __WEBPACK_IMPORTED_MODULE_4__stores_Stores__["a" /* default */].getListTrackingCar()
         });
@@ -18808,6 +18837,36 @@ var CarTrackedItem = function (_React$Component) {
       var _self = this;
       var interval;
 
+      var tungnui = this.state.tracks;
+      var listInterval = [];
+
+      var _loop = function _loop(i) {
+        if (tungnui[i].status == 1) {
+          time1 = new Date(tungnui[i].time_start);
+          time2 = new Date();
+
+          tungnui[i].total_time = Math.floor((time2 - time1) / 1000);
+
+          a = setInterval(function () {
+            tungnui[i].total_time += 1;
+            _self.setState({
+              tracks: tungnui
+            });
+          }, 1000);
+
+
+          listInterval[i] = a;
+        }
+      };
+
+      for (var i = 0; i < tungnui.length; i++) {
+        var time1;
+        var time2;
+        var a;
+
+        _loop(i);
+      }
+
       __WEBPACK_IMPORTED_MODULE_1__stores_Stores__["a" /* default */].on('session_' + this.props.id + '_step_in_checkpoint', function (data) {
         var newTracks = _self.state.tracks;
         newTracks[data.data.data.checkpointIndex].status = 1;
@@ -18826,7 +18885,13 @@ var CarTrackedItem = function (_React$Component) {
       });
 
       __WEBPACK_IMPORTED_MODULE_1__stores_Stores__["a" /* default */].on('session_' + this.props.id + '_step_out_checkpoint', function (data) {
-        clearInterval(interval);
+        if (interval) {
+          clearInterval(interval);
+        }
+        if (listInterval[data.data.data.checkpointIndex]) {
+          clearInterval(listInterval[data.data.data.checkpointIndex]);
+        }
+
         var newTracks = _self.state.tracks;
         newTracks[data.data.data.checkpointIndex].status = 2;
         //update new time
@@ -18841,7 +18906,7 @@ var CarTrackedItem = function (_React$Component) {
     value: function render() {
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'tr',
-        { key: this.props.id, className: 'danger' },
+        { key: this.props.id, className: 'info' },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'td',
           null,
@@ -18853,8 +18918,11 @@ var CarTrackedItem = function (_React$Component) {
           this.props.bienso
         ),
         this.state.tracks.map(function (node) {
+          console.log('===========node=============');
+          console.log(node);
           var txtStatus;
           var time;
+          var cssClass = null;
           switch (node.status) {
             case 2:
               txtStatus = 'Đã kiểm tra';
@@ -18872,10 +18940,12 @@ var CarTrackedItem = function (_React$Component) {
               txtStatus = 'Chưa kiểm tra';
               break;
           }
+          console.log('maxtime:' + node.max_time);
+          if (node.total_time > node.max_time * 60) cssClass = 'danger';
 
           return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'td',
-            null,
+            { className: cssClass },
             txtStatus,
             ' ',
             time

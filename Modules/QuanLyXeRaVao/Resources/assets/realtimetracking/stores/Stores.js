@@ -35,20 +35,25 @@ class CarTrackerStore extends EventEmitter {
    */
   SessionStepOutCheckPoint(data){
     this.emit(`session_step_out_checkpoint_${data.data.checkpointId}`);
-    console.log('session out checkpoint:');
-    console.log(`session_${data.data.sessionId}_step_out_checkpoint`);
     this.emit(`session_${data.data.sessionId}_step_out_checkpoint`,{data:data});
   }
 
   detectNewSession(data){
     this.listTrackingCar.push(JSON.parse(data));
-    console.log('STORE:detect new session');
     this.emit('new_session_was_add_to_track');
   }
 
   getTotalSessions(){
     console.log('sdfsfdsfsdf get total session');
     this.emit('get_total_session_traking');
+  }
+
+  stopTracking(sessionId){
+    console.log('stop session:' + sessionId);
+    var index = this.listTrackingCar.findIndex(session => session.id == sessionId);
+    console.log('session remove:' + index);
+    this.listTrackingCar.splice(index,1);
+    this.emit('stop_session_tracking');
   }
 
   handleAction(action){
@@ -67,6 +72,9 @@ class CarTrackerStore extends EventEmitter {
         break;
       case 'GET_TOTAL_SESSIONS':
         this.getTotalSessions();
+        break;
+      case 'STOP_TRACKING':
+        this.stopTracking(action.sessionId);
         break;
     }
   }
