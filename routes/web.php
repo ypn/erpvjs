@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('dashboard');
-});
+Route::get('/','\Modules\QuanLyXeRaVao\Http\Controllers\QuanLyXeRaVaoController@realtimeTracking');
 Route::get('/login',function(){
     return view('login');
 });

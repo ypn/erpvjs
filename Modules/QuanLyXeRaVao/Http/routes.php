@@ -4,6 +4,9 @@ Route::group(['middleware' => 'web', 'prefix' => 'quanlyxeravao', 'namespace' =>
 {
     Route::get('/', 'QuanLyXeRaVaoController@realtimeTracking');
     Route::get('report','QuanLyXeRaVaoController@report');
+    Route::group(['prefix'=>'report'],function(){
+      Route::get('detail','QuanLyXeRaVaoController@getReportDetail');
+    });
     Route::group(['prefix'=>'checkpoints'],function(){
       Route::get('list','CheckPoinController@list');
       Route::get('add','CheckPoinController@add');

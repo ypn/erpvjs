@@ -16,4 +16,8 @@ class SessionsTraking extends Model
     protected function alll(){
         return $this->select('id','bienso','created_at')->get();
     }
+
+    protected function get($id){
+      return($this->where('id',$id)->first());
+    }
 }

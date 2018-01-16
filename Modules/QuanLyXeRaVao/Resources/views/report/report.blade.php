@@ -1,6 +1,20 @@
 @extends('master')
 @section('script')
-<script type="text/javascript"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnYiPim3y8CmQ1_t8slDZTSLnhXk0II7Q"></script>
+<script src="/modules/quanlyxeravao/report.js"></script>
+@stop
+@section('style')
+<style media="screen">
+.modal-dialog {
+width: 98%;
+height: 92%;
+padding: 0;
+}
+
+.modal-content {
+height: 99%;
+}
+</style>
 @stop
 @section('content')
 <section class="content-header">
@@ -62,7 +76,7 @@
                 <td>{{$k++}}</td>
                 <td>{{isset($l->bienso)?$l->bienso :''}}</td>
                 <td>{{date('d/m/Y',strtotime($l->created_at))}}</td>
-                <td><a href="javascript:void(0);">chi tiết</a></td>
+                <td><a data-sessionId="{{$l->id}}" href="#" class="load-detail-session" data-toggle="modal" data-target="#myModal">chi tiết</a></td>
               </tr>
               @endforeach
 
@@ -79,54 +93,42 @@
 
 <section>
   <!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Thêm quy trình mới</h4>
-      </div>
-      <form class="form-horizontal" method="POST" action="/{{Module::find('QuanLyQuyTrinh')->getLowerName()}}/quan-ly-quy-trinh/create">
-      <input type="hidden" name="_token" value="{{csrf_token()}}">
-      <div class="modal-body">
-        <div class="form-group">
-            <label class="control-label col-sm-3" for="name">Tên quy trình *</label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control" name="name" placeholder="Nhập tên quy trình">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label col-sm-3" for="pwd">Diễn giải:</label>
-            <div class="col-sm-9">
-              <textarea class="form-control" name="desc"></textarea>
-            </div>
-          </div>
-        </div>
-      <div class="modal-footer">
-        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Lưu</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Hủy bỏ</button>
-      </div>
-    </div>
-    </form>
-  </div>
-</div>
-</section>
-
-<section>
   <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Modal Header</h4>
+          <h4 class="modal-title">Nhật ký di chuyển</h4>
         </div>
-        <div class="modal-body">
-          <p>Some text in the modal.</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <div class="modal-body" style="height:90%;">
+          <div class="col-md-9" style="height:100%;">
+            <div id="map-canvas" style="width:100%;height:100%;"></div>
+          </div>
+
+          <div class="col-md-3 time-report">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Quãng đường</th>
+                  <th>Thời gian</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Nhà cân</td>
+                  <td>30phuts</td>
+                </tr>
+                <tr>
+                  <td>1</td>
+                  <td>Kho</td>
+                  <td>10 phút</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 

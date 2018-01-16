@@ -16,15 +16,15 @@
       <div class="input-group">
         <input type="text" name="q" class="form-control" placeholder="Search...">
         <span class="input-group-btn">
-              <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-              </button>
-            </span>
+          <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+          </button>
+        </span>
       </div>
     </form>
     <!-- /.search form -->
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu" data-widget="tree">
-      <li class="header">Danh mục quản lý</li>
+      <!-- <li class="header">Danh mục quản lý</li>
       <li>
         <a href="/">
           <i class="fa fa-dashboard"></i> <span>Dashboard</span>
@@ -111,7 +111,7 @@
           <i class="fa fa-angle-left pull-right"></i>
         </span>
         </a>
-      </li>
+      </li> -->
 
       <li class="treeview">
         <a href="#">
@@ -129,7 +129,7 @@
         </ul>
       </li>
 
-      <li class="treeview">
+      <!-- <li class="treeview">
         <a href="#">
           <i class="fa fa-laptop"></i>
           <span>Hệ thống </span>
@@ -141,7 +141,7 @@
           <li><a href="/{{Module::find('Hethong')->getLowerName()}}/quan-ly-quy-trinh/list"><i class="fa fa-circle-o"></i> Quản lý quy trình</a></li>
           <li><a href="/{{Module::find('Hethong')->getLowerName()}}/line-duyet/list"><i class="fa fa-circle-o"></i> Line duyệt</a></li>
         </ul>
-      </li>
+      </li> -->
     </ul>
   </section>
   <!-- /.sidebar -->

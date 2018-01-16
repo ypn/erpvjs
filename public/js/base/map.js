@@ -79,8 +79,6 @@ function drawMap(map){
     icon: ic_nhacan
   });
 
-
-
   var ic_sanbong = './images/iconmap/iconstadium/football-field_x32.png';
 
   var sanbong= new google.maps.Marker({

@@ -70,6 +70,9 @@ class CheckPoints extends Model
 
     protected function del($id){
       $this->destroy($id);
-      
+    }
+
+    protected function getName($id){
+      return $this->select('name')->where('id',$id)->first();
     }
 }
