@@ -1,9 +1,10 @@
 @extends('master')
 @section('script')
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnYiPim3y8CmQ1_t8slDZTSLnhXk0II7Q"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCsu4u1E-u0aNt2mIAO1COEpz2-xq6JK2k"></script>
 <script src="http://113.160.215.214:3000/socket.io/socket.io.js"></script>
 <script type="text/javascript">
   var listCheckpoints = JSON.stringify(<?php echo ($pathCheckPoints); ?>);
+  var current_tracking_cars = JSON.parse('<?php echo ($current_tracking_cars); ?>');
 </script>
 <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
 </script>

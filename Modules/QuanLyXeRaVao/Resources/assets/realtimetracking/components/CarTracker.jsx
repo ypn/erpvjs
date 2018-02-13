@@ -1,4 +1,4 @@
-import React from 'react';
+ import React from 'react';
 import CarTrackedItem from './CarTrackedItem';
 import TableHeader from './TableHeader';
 import * as Actions from '../actions/Actions';
@@ -59,7 +59,7 @@ export default class CarTracker extends React.Component {
           {
             this.state.listTrackingCar.map((node,k)=>{
               return(
-                  <CarTrackedItem status = {node.status} bienso={node.bienso} index={k} id={node.id} />
+                  <CarTrackedItem status = {node.status} bienso={node.bienso} index={k} id={node.id} created = {node.created_at} />
               )
             })
           }

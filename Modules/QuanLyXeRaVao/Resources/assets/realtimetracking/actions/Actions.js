@@ -28,15 +28,31 @@ export function newSessionDetected(data){
   });
 }
 
-export function getTotalSessions(){
-  dispatcher.dispatch({
-    type:'GET_TOTAL_SESSIONS'
-  });
-}
-
 export function stopTracking(sessionId){
     dispatcher.dispatch({
       type:'STOP_TRACKING',
       sessionId
     });
+}
+
+export function togglePath(id){
+    dispatcher.dispatch({
+      type:'TOGGLE_PATH',
+      id
+    })
+}
+
+export function updatePosition(data){
+    dispatcher.dispatch({
+      type:'UPDATE_POSITION',
+      data
+    })
+}
+
+export function changePathColor(id,pathColor){
+  dispatcher.dispatch({
+    type:'CHANGE_PATH_COLOR',
+    id,
+    pathColor
+  });
 }

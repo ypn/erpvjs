@@ -15,12 +15,11 @@ class SessionsTrakingController extends Controller
      * @return Response
      */
     public function list()
-    {
+    {    
         return SessionsTraking::list()->toJson();
     }
 
     public function checking($id){
-
       $result = DB::table('positions_tracking')->select(DB::raw('COUNT(status) as total'))->whereRaw('type=1')->whereRaw("JSON_EXTRACT(status,'$[$id].status') =1")->first();
       return $result->total;
     }

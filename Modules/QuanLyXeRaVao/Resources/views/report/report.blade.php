@@ -1,7 +1,25 @@
 @extends('master')
 @section('script')
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnYiPim3y8CmQ1_t8slDZTSLnhXk0II7Q"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCsu4u1E-u0aNt2mIAO1COEpz2-xq6JK2k"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="/modules/quanlyxeravao/report.js"></script>
+<script type="text/javascript">
+google.charts.load('current', {'packages':['bar']});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable(JSON.parse('<?php echo $chart_data; ?>'));
+
+      var options = {
+        chart: {
+          title: 'Sơ đồ tổng quan xe tai các điểm theo dõi'
+        }
+      };
+
+      var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+      chart.draw(data, google.charts.Bar.convertOptions(options));
+    }
+</script>
 @stop
 @section('style')
 <style media="screen">
@@ -31,6 +49,11 @@ height: 99%;
 <section class="content">
   <div class="row">
     <div class="col-xs-12">
+        <div id="columnchart_material" style="width: 100%; height: 300px;"></div>
+    </div>
+    <br><br>
+    <div class="col-xs-12">
+      <h4>Chi tiết</h4>
       <div class="box">
         @if(Session::has('status'))
           @if(Session::get('status')===1)
@@ -79,7 +102,6 @@ height: 99%;
                 <td><a data-sessionId="{{$l->id}}" href="#" class="load-detail-session" data-toggle="modal" data-target="#myModal">chi tiết</a></td>
               </tr>
               @endforeach
-
           </table>
           </div>
         </div>
@@ -102,36 +124,39 @@ height: 99%;
           <h4 class="modal-title">Nhật ký di chuyển</h4>
         </div>
         <div class="modal-body" style="height:90%;">
-          <div class="col-md-9" style="height:100%;">
+          <div class="col-md-8" style="height:100%;">
             <div id="map-canvas" style="width:100%;height:100%;"></div>
           </div>
 
-          <div class="col-md-3 time-report">
+          <div class="col-md-4 time-report">
+            <div class="report-general">
+              <div class="created_at">
+                <label>Bắt đầu:</label> <span class="sp_created_at"></span>
+              </div>
+              <div class="end_at">
+                <label>Kết thúc:</label> <span class="sp_end_at"></span>
+              </div>
+              <div class="total_time">
+                <label>Tổng thời gian:</label> <span class="sp_total_time"></span>
+              </div>
+            </div>
+            <hr>
+            <h5><label for="">Chi tiết:</label></h5>
             <table class="table table-bordered">
-              <thead>
+              <thead style="font-size:11px;">
                 <tr>
                   <th>#</th>
                   <th>Quãng đường</th>
-                  <th>Thời gian</th>
+                  <th>Thời gian (min:sec)</th>
+                  <th>Định mức (min)</th>
+                  <th>Chênh lệch (min:sec)</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Nhà cân</td>
-                  <td>30phuts</td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>Kho</td>
-                  <td>10 phút</td>
-                </tr>
-              </tbody>
+              <tbody></tbody>
             </table>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </section>

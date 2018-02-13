@@ -16,4 +16,5 @@ mix//.js('resources/assets/js/app.js', 'public/js')
    //.react('resources/assets/js/components/datatable/table-master.js','public/js/base');
    //.react('Modules/QuanLyQuyTrinh/Resources/assets/themlineduyet/master.js','public/modules/quanliquytrinh/lineduyet')
    //.react('resources/assets/js/components/googlemap/map-master.js','public/js/base')
-     .react('Modules/QuanLyXeRaVao/Resources/assets/realtimetracking/car-tracking-master.js','public/modules/quanlyxeravao');
+   //.react('Modules/QuanLyXeRaVao/Resources/assets/realtimetracking/car-tracking-master.js','public/modules/quanlyxeravao')
+     .react('Modules/QuanLyXeRaVao/Resources/assets/realtimetracking/qlxrv-master.js','public/modules/quanlyxeravao')

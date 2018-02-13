@@ -5,20 +5,39 @@ const SIZE_MD = 5;
 const SIZE_LG = 15;
 const SIZE_EXT= 30;
 var markers = [];
-var lchkps =[];//Danh sách tất cả các check point được tạo từ polygon;
+
+function drawMarker(map){
+  for(let i =0; i< current_tracking_cars.length ; i++){
+    let pos = JSON.parse(JSON.stringify(eval("(" + current_tracking_cars[i].current_position + ")")));
+    let infowindow = new google.maps.InfoWindow({
+      content: '<b>' + current_tracking_cars[i].bienso + '</b>'
+    });
+    let mk = new google.maps.Marker({
+      position: pos,
+      map: map,
+      id:current_tracking_cars[i].id
+    });
+
+    mk.addListener('click', function() {
+      infowindow.open(map, mk);
+    });
+    markers.push(mk);
+  }
+}
 initMap();
+
 function initMap() {
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 17,
       center: {lat: 20.904956, lng: 106.629027}
     });
-    var marker =null;
     var socket = io('113.160.215.214:3000');
-    var path = [];
-    var poly = new google.maps.Polyline({
-      map: map
-    });
+    // var paths = [];
+    // var poly = new google.maps.Polyline({
+    //   map: map
+    // });
 
+    drawMarker(map);
     drawMap(map);
 
     //Tạo polygon từ checkpoins
@@ -33,42 +52,47 @@ function initMap() {
         fillOpacity: 0.35,
         name:'nha can'
       });
-      lchkps.push(cp);
       cp.setMap(map);
     }
 
-    socket.on('new_device_connected', function (data) {
-      let uluru = data.position
-      marker = new google.maps.Marker({
+    socket.on('new_session_detected', function (data) {
+      console.log('data of marker');
+      console.log(data);
+      let session  = JSON.parse(data.data);
+      let uluru = data.position;
+      let infowindow = new google.maps.InfoWindow({
+        content: '<b>' + session.bienso + '</b>'
+      });
+      let marker = new google.maps.Marker({
         position: uluru,
-        map: map
+        map: map,
+        id:session.id
+      });
+      marker.addListener('click', function() {
+        infowindow.open(map, marker);
       });
       markers.push(marker);
-      path.push(uluru);
     });
 
     //Updata position
     socket.on('update_position',function(data){
       let uluru = data.marker;
-      if(marker == null){
-          marker = new google.maps.Marker({
-            position: uluru,
-            map: map
-        });
-      }
-
-      //let result = getCheckpointOfCar(marker.getPosition());
-
-      marker.setPosition(uluru);
-      path.push(uluru);
-      poly.setPath(path);
+      console.log('=========MKP=======');
+      let mk = markers.find(function(e){
+        return e.id == data.id;
+      });
+      mk.setPosition(uluru);
 
     });//---End update position--//
 
-}
+    socket.on('stop_tracking',function(data){
+      let mk = markers.findIndex(function(e){
+        return e.id == data.sessionId;
+      });
+      markers[mk].setMap(null);
+      markers.splice(mk,1);
+    });
 
-function updateMarkerPosition(maker,position) {
-  marker.setPosition(position);
 }
 
 function drawMap(map){
@@ -168,7 +192,6 @@ function drawMap(map){
     });
     duong6m.setMap(map);
     //Kết thúc vẽ đường 6m
-
     //Đường bao bãi phế
     var cor_duongbaobaiphe = [
       {lat:20.904127,lng:106.625568},
@@ -413,9 +436,7 @@ function drawMap(map){
          strokeWeight:SIZE_EXT
        });
      }
-
    });
-
 }
 
 function drawPolygon(paths,fillColor){

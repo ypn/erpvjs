@@ -17,15 +17,30 @@ class QuanLyXeRaVaoController extends Controller
      */
     public function realtimeTracking()
     {
+        $current_tracking_cars = SessionsTraking::getCurrentCarPosition();
+
+        //echo $current_tracking_cars;die;
         return view('quanlyxeravao::realtime_tracking',[
           'pathCheckPoints' =>  json_encode (Checkpoints::getPathCheckPoints()),
+          'current_tracking_cars' => $current_tracking_cars
         ]);
+    }
+
+    public function entry(){
+      return view('quanlyxeravao::entry');
     }
 
     public function report(){
       $list = SessionsTraking::alll();
+
+      $report = SessionsTraking::getReport();
+      $char_data =  array($report['name']);
+      foreach ($report['result'] as $r) {
+        array_push($char_data, $r);
+      }
       return view('quanlyxeravao::report.report',[
-        'list'=>$list
+        'list'=>$list,
+        'chart_data'=>json_encode($char_data)
       ]);
     }
 
@@ -33,14 +48,16 @@ class QuanLyXeRaVaoController extends Controller
       $input = Input::all();
       $result = SessionsTraking::get($input['sessionId']);
       $status = json_decode($result->status);
-
       foreach($status as $s){
         $name = Checkpoints::getName($s->checkpointId);
-        $s->name = $name->name;
+        if($name){
+            $s->name = $name->name;
+        }else{
+          $s->name = 'Chưa xác định';
+        }
+
       }
-
       $result->status = $status;
-
 
       return $result;
     }

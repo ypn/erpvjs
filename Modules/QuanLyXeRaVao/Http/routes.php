@@ -2,7 +2,7 @@
 
 Route::group(['middleware' => 'web', 'prefix' => 'quanlyxeravao', 'namespace' => 'Modules\QuanLyXeRaVao\Http\Controllers'], function()
 {
-    Route::get('/', 'QuanLyXeRaVaoController@realtimeTracking');
+    Route::get('/', 'QuanLyXeRaVaoController@entry');
     Route::get('report','QuanLyXeRaVaoController@report');
     Route::group(['prefix'=>'report'],function(){
       Route::get('detail','QuanLyXeRaVaoController@getReportDetail');
@@ -23,6 +23,11 @@ Route::group(['middleware' => 'web', 'prefix' => 'quanlyxeravao', 'namespace' =>
     Route::group(['prefix'=>'session-tracking'],function(){
       Route::get('list','SessionsTrakingController@list');
       Route::get('checking/{id}','SessionsTrakingController@checking');
+    });
+
+    Route::group(['prefix'=>'object-tracking'],function(){
+      Route::get('{id}','ObjectTrackingController@getTypeInfo');
+      Route::get('{type_id}/{objec_id}','ObjectTrackingController@getObjectInfo');
     });
 
 });

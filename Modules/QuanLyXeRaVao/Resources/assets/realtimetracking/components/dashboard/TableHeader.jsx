@@ -1,7 +1,7 @@
 import React from 'react';
 import CheckPoint from './CheckPoint';
 import axios from 'axios';
-import Stores from '../stores/Stores';
+import Stores from '../../stores/Stores';
 
 export default class TableHeader extends React.Component{
   constructor(props){
@@ -17,14 +17,21 @@ export default class TableHeader extends React.Component{
       this.setState({
         listCheckPoints:response.data
       });
-    });  
+    });
+    Stores.on('ypn',(size)=>{
+        this.setState({
+          total:size
+        })
+    });
   }
   render(){
     return(
       <thead key='table-header'>
-          <tr style = {{background:'#000',color:'#fff'}}>
-            <th key={-2}>#</th>
-            <th key={-1}>Xe({this.state.total})</th>
+          <tr style = {{background:'rgb(42, 201, 170)'}}>
+            <td key={-2}>#</td>
+            <td>Màu đường đi</td>
+            <td>Hiện đường đi</td>
+            <td key={-1}>Xe({this.state.total})</td>
             {
               this.state.listCheckPoints.map((node,k)=>{
                 return(
@@ -32,8 +39,8 @@ export default class TableHeader extends React.Component{
                 );
               })
             }
-            <th>Giờ bắt đầu</th>
-            <th>Thời gian giám sát</th>
+            <td>Giờ bắt đầu</td>
+            <td>Thời gian giám sát</td>
           </tr>
       </thead>
     )
